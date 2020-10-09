@@ -5,8 +5,43 @@
 
 <br/>
 
-    $ curl -X GET "http://localhost:4000/users/b8467957-006b-4314-8849-a17ffa640ef2" -H  "accept: application/json" \
+    $ curl -X GET "http://localhost:4000/users/5b811dc3-3f09-48d1-a1cb-634c1f83a127" \
+    -H  "accept: application/json" \
     | python3 -m json.tool
+
+<br/>
+
+    $ curl -d '{
+        "name": "newName",
+        "login": "newLogin",
+        "password": "newPassword"
+    }' \
+    -H "Content-Type: application/json" \
+    -X PUT "http://localhost:4000/users/06929eab-d187-4b27-8d61-0a6965383b8d" \
+    | python3 -m json.tool
+
+<br/>
+
+    $ curl \
+    -X DELETE "http://localhost:4000/users/47f4138b-21c4-432d-a207-2ee7ebda74de" \
+    -H  "accept: application/json" \
+    | python3 -m json.tool
+
+<br/>
+
+```
+exports.updateUser = asyncHandler(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  });
+
+  return res.status(200).json({
+    success: true,
+    data: user
+  });
+});
+```
 
 <br/>
 

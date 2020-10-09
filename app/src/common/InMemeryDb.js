@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const User = require('../resources/users/user.model');
 
 const DB = [];
@@ -18,4 +19,29 @@ const createUser = async (user) => {
   return getUser(user.id);
 };
 
-module.exports = { getAllUsers, getUser, createUser };
+const updateUser = async (id, body) => {
+  await _.map(DB, (stateItem) => {
+    if (stateItem.id === id) {
+      _.map(stateItem, (value, key) => {
+        // if (body.hasOwnProperty(key)) {
+        //   stateItem[key] = body[key];
+        // }
+
+        if (Object.prototype.hasOwnProperty.call(body, key)) {
+          stateItem[key] = body[key];
+        }
+      });
+    }
+  });
+  return getUser(id);
+};
+
+const removeUser = async (id) => {
+  const deletedUser = await getUser(id);
+  await _.remove(DB, (user) => {
+    return user.id === id;
+  });
+  return deletedUser;
+};
+
+module.exports = { getAllUsers, getUser, createUser, updateUser, removeUser };

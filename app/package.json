@@ -48,6 +48,7 @@
     "cross-env": "7.0.2",
     "dotenv": "8.2.0",
     "express": "4.17.1",
+    "lodash": "^4.17.20",
     "swagger-ui-express": "4.1.4",
     "uuid": "8.3.1",
     "yamljs": "0.3.0"
