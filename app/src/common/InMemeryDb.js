@@ -9,7 +9,8 @@ const getAllUsers = async () => {
 };
 
 const getUser = async (id) => {
-  return DB.filter((el) => el.id === id)[0];
+  const allUsers = await getAllUsers();
+  return allUsers.filter((el) => el.id === id)[0];
 };
 
 const createUser = async (user) => {

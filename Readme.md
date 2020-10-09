@@ -1,5 +1,15 @@
 # RS School REST service
 
+    $ curl -X GET "http://localhost:4000/users" -H  "accept: application/json" \
+    | python3 -m json.tool
+
+<br/>
+
+    $ curl -X GET "http://localhost:4000/users/b8467957-006b-4314-8849-a17ffa640ef2" -H  "accept: application/json" \
+    | python3 -m json.tool
+
+<br/>
+
 ## Task 2. Express REST service
 
 Let's try to create a competitor for Trello!

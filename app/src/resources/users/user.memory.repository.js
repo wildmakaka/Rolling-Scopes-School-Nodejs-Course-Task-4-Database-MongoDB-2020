@@ -4,13 +4,11 @@ const getAll = async () => DB.getAllUsers();
 
 const get = async (id) => {
   const user = await DB.getUser(id);
-
-  if (!user[0]) {
+  if (!user) {
     throw new Error(`[App Error] The user with id: ${id} was not found!`);
   } else if (user.lenght > 1) {
     throw new Error('[App Error] DB is corrupted!');
   }
-
   return user;
 };
 
