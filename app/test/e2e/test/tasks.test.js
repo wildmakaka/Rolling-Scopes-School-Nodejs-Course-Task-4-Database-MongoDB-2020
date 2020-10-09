@@ -2,7 +2,7 @@ const { request: unauthorizedRequest, routes } = require('../lib');
 const debug = require('debug')('rs:test:tasks');
 const {
   createAuthorizedRequest,
-  shouldAuthorizationBeTested
+  shouldAuthorizationBeTested,
 } = require('../utils');
 
 const TEST_TASK_DATA = {
@@ -11,15 +11,15 @@ const TEST_TASK_DATA = {
   description: 'Lorem ipsum',
   userId: null,
   boardId: null,
-  columnId: null
+  columnId: null,
 };
 
 const TEST_BOARD_DATA = {
   title: 'Autotest board',
   columns: [
     { title: 'Backlog', order: 1 },
-    { title: 'Sprint', order: 2 }
-  ]
+    { title: 'Sprint', order: 2 },
+  ],
 };
 
 describe('Tasks suite', () => {
@@ -36,19 +36,19 @@ describe('Tasks suite', () => {
       .post(routes.boards.create)
       .set('Accept', 'application/json')
       .send(TEST_BOARD_DATA)
-      .then(res => (testBoardId = res.body.id));
+      .then((res) => (testBoardId = res.body.id));
 
     await request
       .post(routes.tasks.create(testBoardId))
       .set('Accept', 'application/json')
       .send(TEST_TASK_DATA)
-      .then(res => (testTaskId = res.body.id));
+      .then((res) => (testTaskId = res.body.id));
   });
 
   afterAll(async () => {
     await request
       .delete(routes.boards.delete(testBoardId))
-      .then(res => expect(res.status).oneOf([200, 204]));
+      .then((res) => expect(res.status).oneOf([200, 204]));
   });
 
   describe('GET', () => {
@@ -58,7 +58,7 @@ describe('Tasks suite', () => {
         .set('Accept', 'application/json')
         .expect(200)
         .expect('Content-Type', /json/)
-        .then(res => {
+        .then((res) => {
           debug(res.body);
           expect(res.body).to.be.an('array');
           jestExpect(res.body).not.toHaveLength(0);
@@ -72,7 +72,7 @@ describe('Tasks suite', () => {
       await request
         .get(routes.tasks.getAll(testBoardId))
         .expect(200)
-        .then(res => {
+        .then((res) => {
           jestExpect(Array.isArray(res.body)).toBe(true);
           jestExpect(res.body).not.toHaveLength(0);
           expectedTask = res.body[0];
@@ -84,7 +84,7 @@ describe('Tasks suite', () => {
         .set('Accept', 'application/json')
         .expect(200)
         .expect('Content-Type', /json/)
-        .then(res => {
+        .then((res) => {
           jestExpect(res.body).toEqual(expectedTask);
         });
     });
@@ -100,12 +100,12 @@ describe('Tasks suite', () => {
         .send(TEST_TASK_DATA)
         .expect(200)
         .expect('Content-Type', /json/)
-        .then(res => {
+        .then((res) => {
           expect(res.body.id).to.be.a('string');
           taskId = res.body.id;
           jestExpect(res.body).toMatchObject({
             ...TEST_TASK_DATA,
-            boardId: testBoardId
+            boardId: testBoardId,
           });
         });
 
@@ -123,13 +123,13 @@ describe('Tasks suite', () => {
         .post(routes.tasks.create(testBoardId))
         .set('Accept', 'application/json')
         .send(TEST_TASK_DATA)
-        .then(res => {
+        .then((res) => {
           addedTask = res.body;
         });
 
       const updatedTask = {
         ...addedTask,
-        title: 'Autotest updated task'
+        title: 'Autotest updated task',
       };
 
       // Test
@@ -145,7 +145,7 @@ describe('Tasks suite', () => {
         .set('Accept', 'application/json')
         .expect(200)
         .expect('Content-Type', /json/)
-        .then(res => jestExpect(res.body).toMatchObject(updatedTask));
+        .then((res) => jestExpect(res.body).toMatchObject(updatedTask));
     });
   });
 
@@ -156,7 +156,7 @@ describe('Tasks suite', () => {
         .expect(200);
       await request
         .delete(routes.tasks.delete(testBoardId, testTaskId))
-        .then(res => expect(res.status).oneOf([200, 204]));
+        .then((res) => expect(res.status).oneOf([200, 204]));
 
       await request
         .get(routes.tasks.getById(testBoardId, testTaskId))

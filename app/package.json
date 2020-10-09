@@ -10,7 +10,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "nodemon src/server.js",
-    "lint": "eslint ./ --ignore-path .gitignore --fix",
+    "lint": "eslint ./ --ignore-path ./../.gitignore --fix",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace"
   },
@@ -53,18 +53,18 @@
     "yamljs": "0.3.0"
   },
   "devDependencies": {
-    "eslint": "7.10.0",
-    "eslint-config-prettier": "6.12.0",
-    "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-prettier": "3.1.4",
-    "husky": "4.3.0",
-    "lint-staged": "10.4.0",
-    "nodemon": "2.0.4",
-    "prettier": "2.1.2",
     "chai": "4.2.0",
     "debug": "4.2.0",
     "dirty-chai": "2.0.1",
+    "eslint": "7.10.0",
+    "eslint-config-prettier": "6.12.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "3.1.4",
+    "husky": "4.3.0",
     "jest": "26.5.2",
+    "lint-staged": "10.4.0",
+    "nodemon": "2.0.4",
+    "prettier": "2.1.2",
     "supertest": "5.0.0"
   }
 }

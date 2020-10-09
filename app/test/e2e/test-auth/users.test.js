@@ -3,7 +3,7 @@ const { request, routes } = require('../lib');
 const TEST_USER_DATA = {
   name: 'TEST_USER',
   login: 'test_user',
-  password: 'T35t_P@55w0rd'
+  password: 'T35t_P@55w0rd',
 };
 
 describe('Users suite', () => {
@@ -21,10 +21,7 @@ describe('Users suite', () => {
 
   describe('POST', () => {
     it('should get 401 without token presented ', async () => {
-      await request
-        .post(routes.users.create)
-        .send(TEST_USER_DATA)
-        .expect(401);
+      await request.post(routes.users.create).send(TEST_USER_DATA).expect(401);
     });
   });
 
