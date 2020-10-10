@@ -3,7 +3,8 @@ const Board = require('../resources/boards/board.model');
 
 const DBBoards = [];
 
-DBBoards.push(new Board(), new Board(), new Board());
+// DBBoards.push(new Board(), new Board(), new Board());
+DBBoards.push(new Board());
 
 const getAllBoards = async () => {
   return DBBoards.slice(0);
@@ -37,8 +38,6 @@ const updateBoard = async (id, body) => {
 };
 
 const removeBoard = async (id) => {
-  console.log('InMemeryDbBoards.js');
-
   const deletedBoard = await getBoard(id);
   await _.remove(DBBoards, (board) => {
     return board.id === id;

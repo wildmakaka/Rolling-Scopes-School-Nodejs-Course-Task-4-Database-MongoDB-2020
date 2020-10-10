@@ -2,14 +2,14 @@ const tasksRepo = require('./task.memory.repository');
 
 const getAll = () => tasksRepo.getAll();
 
-// const get = (id) => usersRepo.get(id);
+const get = (id) => tasksRepo.get(id);
 
-// const create = (user) => usersRepo.create(user);
+const create = (task) => tasksRepo.create(task);
 
-// const update = (id, body) => usersRepo.update(id, body);
+// const update = (id, body) => tasksRepo.update(id, body);
 
-// const remove = (id) => usersRepo.remove(id);
+const remove = (id) => tasksRepo.remove(id);
 
-// module.exports = { getAll, get, create, remove, update };
+//  remove, update };
 
-module.exports = { getAll };
+module.exports = { getAll, get, create, remove };

@@ -36,7 +36,8 @@ Ubuntu 20.04.01 LTS
 
 **Get All Users**
 
-    $ curl -X GET "http://localhost:4000/users" -H  "accept: application/json" \
+    $ curl -X GET "http://localhost:4000/users" \
+    -H  "accept: application/json" \
     | python3 -m json.tool
 
 <br/>
@@ -71,6 +72,66 @@ Ubuntu 20.04.01 LTS
 
 <br/>
 
+### Tasks
+
+<br/>
+
+**Get All Tasks**
+
+    $ curl -X GET "http://localhost:4000/tasks" -H  "accept: application/json" \
+    | python3 -m json.tool
+
+<br/>
+
+**Get Task by ID**
+
+    $ curl -X GET http://localhost:4000/tasks/110973a6-cd36-4c67-8103-1e7ad2b1b67d \
+    -H  "accept: application/json" \
+    | python3 -m json.tool
+
+<br/>
+
+**Create Task**
+
+Получить userId  
+Получить boardId
+
+<br/>
+
+    $ curl -d '{
+      "title": "Hello World Task!",
+      "order": "1",
+      "description": "Hello World Task! Author is Marley!!!",
+      "userId" : "1234",
+      "boardId" : "5678",
+      "columnId" : "2"
+    }' \
+    -H "Content-Type: application/json" \
+    -X POST http://localhost:4000/tasks \
+    | python3 -m json.tool
+
+<!--
+
+  id,
+      title,
+      order,
+      description,
+      userId, //assignee
+      boardId,
+      columnId;
+-->
+
+<br/>
+
+**Delete Task**
+
+    $ curl \
+    -X DELETE "http://localhost:4000/tasks/43e3a2d0-6c93-44f4-946c-1c8acbeafd5c" \
+    -H  "accept: application/json" \
+    | python3 -m json.tool
+
+<br/>
+
 ### Boards
 
 <br/>
@@ -90,10 +151,41 @@ Ubuntu 20.04.01 LTS
 
 <br/>
 
+**Create Board**
+
+<br/>
+
+    $ curl -d '{
+      "title": "Hello World!"
+    }' \
+    -H "Content-Type: application/json" \
+    -X POST http://localhost:4000/boards \
+    | python3 -m json.tool
+
+<!-- $ curl -d '{
+  "user": "5d7a514b5d2c12c7449be045",
+	"name": "Devworks Bootcamp",
+	"description": "Devworks is a full stack JavaScript Bootcamp located in the heart of Boston that focuses on the technologies you need to get a high paying job as a web developer",
+	"website": "https://devworks.com",
+	"phone": "(111) 111-1111",
+	"email": "enroll@devworks.com",
+	"address": "233 Bay State Rd Boston MA 02215",
+	"careers": ["Web Development", "UI/UX", "Business"],
+	"housing": true,
+	"jobAssistance": true,
+	"jobGuarantee": false,
+	"acceptGi": true
+}' \
+-H "Content-Type: application/json" \
+-X POST localhost:5000/api/v1/bootcamps \
+| python -m json.tool     -->
+
+<br/>
+
 **Delete Board**
 
     $ curl \
-    -X DELETE "http://localhost:4000/boards/5cdcd412-6a5a-461c-878e-13f73d3a8a3a" \
+    -X DELETE "http://localhost:4000/boards/1fc7d7da-5ee6-4820-8447-f8c3d180c4f6" \
     -H  "accept: application/json" \
     | python3 -m json.tool
 
@@ -113,15 +205,6 @@ Ubuntu 20.04.01 LTS
         ]
     },
 ```
-
-<br/>
-
-### Tasks
-
-<br/>
-
-    $ curl -X GET "http://localhost:4000/tasks" -H  "accept: application/json" \
-    | python3 -m json.tool
 
 <br/>
 

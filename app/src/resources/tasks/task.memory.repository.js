@@ -1,29 +1,29 @@
-const DB = require('../../common/InMemeryDbTasks');
+const DBTasks = require('../../common/InMemeryDbTasks');
 
-const getAll = async () => DB.getAllTasks();
+const getAll = async () => DBTasks.getAllTasks();
 
-// const get = async (id) => {
-//   const user = await DB.getUser(id);
-//   if (!user) {
-//     throw new Error(`[App Error] The user with id: ${id} was not found!`);
-//   } else if (user.lenght > 1) {
-//     throw new Error('[App Error] DB is corrupted!');
-//   }
-//   return user;
-// };
+const get = async (id) => {
+  const task = await DBTasks.getTask(id);
+  if (!task) {
+    throw new Error(`[App Error] The task with id: ${id} was not found!`);
+  } else if (task.lenght > 1) {
+    throw new Error('[App Error] DB is corrupted!');
+  }
+  return task;
+};
 
-// const create = async (user) => {
-//   return DB.createUser(user);
-// };
+const create = async (task) => {
+  return DBTasks.createTask(task);
+};
 
 // const update = async (id, body) => {
 //   return DB.updateUser(id, body);
 // };
 
-// const remove = async (id) => {
-//   return DB.removeUser(id);
-// };
+const remove = async (id) => {
+  return DBTasks.removeTask(id);
+};
 
-// module.exports = { getAll, get, create, update, remove };
+// update
 
-module.exports = { getAll };
+module.exports = { getAll, get, create, remove };

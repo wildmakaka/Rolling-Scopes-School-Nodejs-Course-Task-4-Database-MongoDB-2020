@@ -21,7 +21,6 @@ const update = async (id, body) => {
 };
 
 const remove = async (id) => {
-  console.log('board.memory.repository.js');
   return DBBoards.removeBoard(id);
 };
 
