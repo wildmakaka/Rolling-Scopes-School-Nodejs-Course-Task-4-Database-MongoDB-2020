@@ -1,9 +1,19 @@
 # RS School REST service
 
+<br/>
+
+### Users
+
+<br/>
+
+**Get All Users**
+
     $ curl -X GET "http://localhost:4000/users" -H  "accept: application/json" \
     | python3 -m json.tool
 
 <br/>
+
+**Get User by ID**
 
     $ curl -X GET "http://localhost:4000/users/5b811dc3-3f09-48d1-a1cb-634c1f83a127" \
     -H  "accept: application/json" \
@@ -29,19 +39,31 @@
 
 <br/>
 
-```
-exports.updateUser = asyncHandler(async (req, res, next) => {
-  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  });
+### Boards
 
-  return res.status(200).json({
-    success: true,
-    data: user
-  });
-});
-```
+<br/>
+
+**Get All Boards**
+
+    $ curl -X GET "http://localhost:4000/boards" -H  "accept: application/json" \
+    | python3 -m json.tool
+
+<br/>
+
+**Get Board by ID**
+
+    $ curl -X GET "http://localhost:4000/boards/5da5a3c9-4710-4ff6-b6e5-f1cd37ac8af9" \
+    -H  "accept: application/json" \
+    | python3 -m json.tool
+
+<br/>
+
+### Tasks
+
+<br/>
+
+    $ curl -X GET "http://localhost:4000/tasks" -H  "accept: application/json" \
+    | python3 -m json.tool
 
 <br/>
 
@@ -118,8 +140,3 @@ Let's try to create a competitor for Trello!
 7. To run the service “npm start” command should be used.
 
 8. Service should listen on PORT 4000.
-
-**Hints**
-
-- To test the service CRUD methods you can use Swagger html (see [README.md](https://github.com/rolling-scopes-school/nodejs-course-template/blob/master/README.md#running-application)).
-- To generate all entities “id”s use [uuid](https://www.npmjs.com/package/uuid) package.
