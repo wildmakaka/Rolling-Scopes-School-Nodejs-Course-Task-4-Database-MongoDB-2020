@@ -3,7 +3,11 @@ class Board {
   constructor({
     id = uuid(),
     title = 'DefaultTitle',
-    columns = 'DefaultColumns',
+    columns = [
+      { id: uuid(), title: 'Default Column Title 1', order: '1' },
+      { id: uuid(), title: 'Default Column Title 2', order: '2' },
+      { id: uuid(), title: 'Default Column Title 3', order: '3' },
+    ],
   } = {}) {
     this.id = id;
     this.title = title;

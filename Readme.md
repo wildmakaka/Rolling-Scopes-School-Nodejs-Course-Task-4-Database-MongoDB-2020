@@ -2,6 +2,34 @@
 
 <br/>
 
+# Окружение в котором разрабатывалось:
+
+Ubuntu 20.04.01 LTS
+
+<br/>
+
+    $ node --version
+    v12.18.4
+
+<br/>
+
+    $ npm --version
+    6.14.8
+
+<br/>
+
+    $ cd app/
+    $ npm install
+    $ npm start
+
+<br/>
+
+![Application](/img/results.png?raw=true)
+
+<br/>
+
+# Проверки (необходимо заменять id на сгенерированные):
+
 ### Users
 
 <br/>

@@ -1,12 +1,12 @@
 const _ = require('lodash');
 const User = require('../resources/users/user.model');
 
-const DB = [];
+const DBUsers = [];
 
-DB.push(new User(), new User(), new User());
+DBUsers.push(new User(), new User(), new User());
 
 const getAllUsers = async () => {
-  return DB.slice(0);
+  return DBUsers.slice(0);
 };
 
 const getUser = async (id) => {
@@ -15,12 +15,12 @@ const getUser = async (id) => {
 };
 
 const createUser = async (user) => {
-  DB.push(user);
+  DBUsers.push(user);
   return getUser(user.id);
 };
 
 const updateUser = async (id, body) => {
-  await _.map(DB, (stateItem) => {
+  await _.map(DBUsers, (stateItem) => {
     if (stateItem.id === id) {
       _.map(stateItem, (value, key) => {
         // if (body.hasOwnProperty(key)) {
@@ -38,7 +38,7 @@ const updateUser = async (id, body) => {
 
 const removeUser = async (id) => {
   const deletedUser = await getUser(id);
-  await _.remove(DB, (user) => {
+  await _.remove(DBUsers, (user) => {
     return user.id === id;
   });
   return deletedUser;
