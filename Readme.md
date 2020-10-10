@@ -21,6 +21,8 @@
 
 <br/>
 
+**Update User**
+
     $ curl -d '{
         "name": "newName",
         "login": "newLogin",
@@ -32,8 +34,10 @@
 
 <br/>
 
+**Delete User**
+
     $ curl \
-    -X DELETE "http://localhost:4000/users/47f4138b-21c4-432d-a207-2ee7ebda74de" \
+    -X DELETE "http://localhost:4000/users/5cdcd412-6a5a-461c-878e-13f73d3a8a3a" \
     -H  "accept: application/json" \
     | python3 -m json.tool
 
@@ -55,6 +59,32 @@
     $ curl -X GET "http://localhost:4000/boards/5da5a3c9-4710-4ff6-b6e5-f1cd37ac8af9" \
     -H  "accept: application/json" \
     | python3 -m json.tool
+
+<br/>
+
+**Delete Board**
+
+    $ curl \
+    -X DELETE "http://localhost:4000/boards/5cdcd412-6a5a-461c-878e-13f73d3a8a3a" \
+    -H  "accept: application/json" \
+    | python3 -m json.tool
+
+```
+{
+        "id": "d87494bf-9a89-452d-ad68-094b19a2619a",
+        "title": "Autotest board",
+        "columns": [
+            {
+                "title": "Backlog",
+                "order": 1
+            },
+            {
+                "title": "Sprint",
+                "order": 2
+            }
+        ]
+    },
+```
 
 <br/>
 

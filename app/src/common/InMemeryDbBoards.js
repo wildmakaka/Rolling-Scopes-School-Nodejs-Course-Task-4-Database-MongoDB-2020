@@ -1,4 +1,4 @@
-// const _ = require('lodash');
+const _ = require('lodash');
 const Board = require('../resources/boards/board.model');
 
 const DBBoards = [];
@@ -14,35 +14,42 @@ const getBoard = async (id) => {
   return allBoards.filter((el) => el.id === id)[0];
 };
 
-// const createUser = async (user) => {
-//   DB.push(user);
-//   return getUser(user.id);
-// };
+const createBoard = async (board) => {
+  DBBoards.push(board);
+  return getBoard(board.id);
+};
 
-// const updateUser = async (id, body) => {
-//   await _.map(DB, (stateItem) => {
-//     if (stateItem.id === id) {
-//       _.map(stateItem, (value, key) => {
-//         // if (body.hasOwnProperty(key)) {
-//         //   stateItem[key] = body[key];
-//         // }
+const updateBoard = async (id, body) => {
+  await _.map(DBBoards, (stateItem) => {
+    if (stateItem.id === id) {
+      _.map(stateItem, (value, key) => {
+        // if (body.hasOwnProperty(key)) {
+        //   stateItem[key] = body[key];
+        // }
 
-//         if (Object.prototype.hasOwnProperty.call(body, key)) {
-//           stateItem[key] = body[key];
-//         }
-//       });
-//     }
-//   });
-//   return getUser(id);
-// };
+        if (Object.prototype.hasOwnProperty.call(body, key)) {
+          stateItem[key] = body[key];
+        }
+      });
+    }
+  });
+  return getBoard(id);
+};
 
-// const removeUser = async (id) => {
-//   const deletedUser = await getUser(id);
-//   await _.remove(DB, (user) => {
-//     return user.id === id;
-//   });
-//   return deletedUser;
-// };
+const removeBoard = async (id) => {
+  console.log('InMemeryDbBoards.js');
 
-// createUser, updateUser, removeUser };
-module.exports = { getAllBoards, getBoard };
+  const deletedBoard = await getBoard(id);
+  await _.remove(DBBoards, (board) => {
+    return board.id === id;
+  });
+  return deletedBoard;
+};
+
+module.exports = {
+  getAllBoards,
+  getBoard,
+  createBoard,
+  updateBoard,
+  removeBoard,
+};

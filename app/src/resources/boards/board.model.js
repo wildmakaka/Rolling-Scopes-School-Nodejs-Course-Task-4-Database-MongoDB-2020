@@ -1,7 +1,4 @@
 const { v4: uuid } = require('uuid');
-
-// id, title, columns;
-
 class Board {
   constructor({
     id = uuid(),

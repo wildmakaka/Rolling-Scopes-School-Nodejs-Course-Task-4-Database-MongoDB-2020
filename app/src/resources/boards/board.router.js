@@ -16,33 +16,32 @@ router.route('/:id').get(async (req, res) => {
   }
 });
 
-// router.route('/').post(async (req, res) => {
-//   const user = await usersService.create(
-//     new User({
-//       login: req.body.login,
-//       password: req.body.password,
-//       name: req.body.name,
-//     })
-//   );
-//   return res.json(User.toResponse(user));
-// });
+router.route('/').post(async (req, res) => {
+  const board = await boardsService.create(
+    new Board({
+      title: req.body.title,
+      columns: req.body.columns,
+    })
+  );
+  return res.json(Board.toResponse(board));
+});
 
-// router.route('/:id').put(async (req, res) => {
-//   try {
-//     const user = await usersService.update(req.params.id, req.body);
-//     return res.json(User.toResponse(user));
-//   } catch (err) {
-//     res.status(404).send(err.message);
-//   }
-// });
+router.route('/:id').put(async (req, res) => {
+  try {
+    const board = await boardsService.update(req.params.id, req.body);
+    return res.json(Board.toResponse(board));
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
 
-// router.route('/:id').delete(async (req, res) => {
-//   try {
-//     const user = await usersService.remove(req.params.id);
-//     return res.json(User.toResponse(user));
-//   } catch (err) {
-//     res.status(404).send(err.message);
-//   }
-// });
+router.route('/:id').delete(async (req, res) => {
+  try {
+    const board = await boardsService.remove(req.params.id);
+    return res.json(Board.toResponse(board));
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
 
 module.exports = router;

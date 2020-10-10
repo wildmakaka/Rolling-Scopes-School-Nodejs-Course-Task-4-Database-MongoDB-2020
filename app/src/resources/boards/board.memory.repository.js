@@ -12,18 +12,17 @@ const get = async (id) => {
   return board;
 };
 
-// const create = async (user) => {
-//   return DB.createUser(user);
-// };
+const create = async (board) => {
+  return DBBoards.createBoard(board);
+};
 
-// const update = async (id, body) => {
-//   return DB.updateUser(id, body);
-// };
+const update = async (id, body) => {
+  return DBBoards.updateBoard(id, body);
+};
 
-// const remove = async (id) => {
-//   return DB.removeUser(id);
-// };
+const remove = async (id) => {
+  console.log('board.memory.repository.js');
+  return DBBoards.removeBoard(id);
+};
 
-// module.exports = { getAll, get, create, update, remove };
-
-module.exports = { getAll, get };
+module.exports = { getAll, get, create, update, remove };
