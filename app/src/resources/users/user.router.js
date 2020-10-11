@@ -37,8 +37,12 @@ router.route('/:id').put(async (req, res) => {
 });
 
 router.route('/:id').delete(async (req, res) => {
+  console.log("DELETE › should unassign user's tasks upon deletion");
   try {
     const user = await usersService.remove(req.params.id);
+
+    console.log('user', user);
+
     return res.json(User.toResponse(user));
   } catch (err) {
     res.status(404).send(err.message);

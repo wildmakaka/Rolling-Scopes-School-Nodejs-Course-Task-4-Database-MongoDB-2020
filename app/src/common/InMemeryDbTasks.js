@@ -1,9 +1,9 @@
 const _ = require('lodash');
-const Task = require('../resources/tasks/task.model');
+// const Task = require('../resources/tasks/task.model');
 
 const DBTasks = [];
 
-DBTasks.push(new Task(), new Task(), new Task());
+// DBTasks.push(new Task(), new Task(), new Task());
 
 const getAllTasks = async () => {
   return DBTasks.slice(0);
@@ -44,5 +44,21 @@ const removeTask = async (id) => {
   return deletedTask;
 };
 
+const deleteUserFromTasks = async (userId) => {
+  await _.map(DBTasks, (task) => {
+    if (task.userId === userId) {
+      task.userId = null;
+    }
+  });
+
+  return null;
+};
+
 // module.exports = { , updateUser, removeUser };
-module.exports = { getAllTasks, getTask, createTask, removeTask };
+module.exports = {
+  getAllTasks,
+  getTask,
+  createTask,
+  removeTask,
+  deleteUserFromTasks,
+};

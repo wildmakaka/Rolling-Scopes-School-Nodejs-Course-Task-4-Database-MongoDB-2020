@@ -17,16 +17,20 @@ router.route('/:id').get(async (req, res) => {
 });
 
 router.route('/').post(async (req, res) => {
+  // console.log('should create task successfullys');
+
   const task = await tasksService.create(
     new Task({
       title: req.body.title,
       order: req.body.order,
       description: req.body.description,
       userId: req.body.userId,
-      boardId: req.body.boardId,
+      boardId: req.params.boardId,
       columnId: req.body.columnId,
     })
   );
+
+  // console.log('task', task);
 
   return res.json(Task.toResponse(task));
 });
@@ -84,9 +88,9 @@ router.route('/:id').delete(async (req, res) => {
 //   }
 // });
 
-// // Create Task belongs to specific board
-// // ERROR !!!
-// // should create task successfully
+// Create Task belongs to specific board
+// ERROR !!!
+// should create task successfully
 // router.route('/:boardId/tasks').post(async (req, res) => {
 //   console.log('should create task successfullys');
 //   try {

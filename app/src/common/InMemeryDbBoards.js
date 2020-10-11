@@ -1,12 +1,12 @@
 const _ = require('lodash');
-const Board = require('../resources/boards/board.model');
+// const Board = require('../resources/boards/board.model');
 
 const DBTasks = require('./InMemeryDbTasks');
 const Task = require('../resources/tasks/task.model');
 
 const DBBoards = [];
 
-DBBoards.push(new Board());
+// DBBoards.push(new Board());
 
 const getAllBoards = async () => {
   return DBBoards.slice(0);

@@ -1,9 +1,10 @@
 const _ = require('lodash');
-const User = require('../resources/users/user.model');
+// const User = require('../resources/users/user.model');
+const DBTasks = require('./InMemeryDbTasks');
 
 const DBUsers = [];
 
-DBUsers.push(new User(), new User(), new User());
+// DBUsers.push(new User(), new User(), new User());
 
 const getAllUsers = async () => {
   return DBUsers.slice(0);
@@ -36,11 +37,16 @@ const updateUser = async (id, body) => {
   return getUser(id);
 };
 
-const removeUser = async (id) => {
-  const deletedUser = await getUser(id);
+const removeUser = async (userId) => {
+  const deletedUser = await getUser(userId);
   await _.remove(DBUsers, (user) => {
-    return user.id === id;
+    return user.id === userId;
   });
+
+  await DBTasks.deleteUserFromTasks(userId);
+
+  // console.log('tasksDB', DBTasks.getAllTasks());
+
   return deletedUser;
 };
 
