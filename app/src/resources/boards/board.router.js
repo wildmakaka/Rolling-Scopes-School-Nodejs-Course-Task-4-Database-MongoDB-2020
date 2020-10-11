@@ -39,8 +39,11 @@ router.route('/:id').put(async (req, res) => {
 });
 
 router.route('/:id').delete(async (req, res) => {
+  console.log("DELETE › should delete board's tasks upon deletion");
+  const boardId = req.params.id;
+
   try {
-    const board = await boardsService.remove(req.params.id);
+    const board = await boardsService.remove(boardId);
     return res.json(Board.toResponse(board));
   } catch (err) {
     res.status(404).send(err.message);

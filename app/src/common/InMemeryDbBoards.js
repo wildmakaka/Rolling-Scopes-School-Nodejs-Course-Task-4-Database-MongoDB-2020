@@ -39,10 +39,10 @@ const updateBoard = async (id, body) => {
   return getBoard(id);
 };
 
-const removeBoard = async (id) => {
-  const deletedBoard = await getBoard(id);
+const removeBoard = async (boardId) => {
+  const deletedBoard = await getBoard(boardId);
   await _.remove(DBBoards, (board) => {
-    return board.id === id;
+    return board.id === boardId;
   });
   return deletedBoard;
 };

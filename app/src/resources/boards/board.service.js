@@ -8,7 +8,7 @@ const create = (board) => boardsRepo.create(board);
 
 const update = (id, body) => boardsRepo.update(id, body);
 
-const remove = (id) => boardsRepo.remove(id);
+const remove = (boardId) => boardsRepo.remove(boardId);
 
 const getBoardTask = (boardId, taskId) =>
   boardsRepo.getBoardTask(boardId, taskId);

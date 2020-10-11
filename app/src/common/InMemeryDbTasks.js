@@ -20,11 +20,6 @@ const createTask = async (task) => {
 };
 
 const updateTask = async (boardId, taskId, body) => {
-  console.log('updateTask');
-  console.log(boardId);
-  console.log(taskId);
-  console.log(body);
-
   await _.map(DBTasks, (task) => {
     if (task.id === taskId) {
       _.map(task, (value, key) => {

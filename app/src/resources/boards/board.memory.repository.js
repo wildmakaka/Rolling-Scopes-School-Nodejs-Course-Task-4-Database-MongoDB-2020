@@ -20,8 +20,8 @@ const update = async (id, body) => {
   return DBBoards.updateBoard(id, body);
 };
 
-const remove = async (id) => {
-  return DBBoards.removeBoard(id);
+const remove = async (boardId) => {
+  return DBBoards.removeBoard(boardId);
 };
 
 //
