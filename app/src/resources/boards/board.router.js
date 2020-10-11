@@ -39,7 +39,9 @@ router.route('/:id').put(async (req, res) => {
 });
 
 router.route('/:id').delete(async (req, res) => {
-  console.log("DELETE › should delete board's tasks upon deletion");
+  console.log(
+    "[BoardRouter] DELETE › should delete board's tasks upon deletion"
+  );
   const boardId = req.params.id;
 
   try {

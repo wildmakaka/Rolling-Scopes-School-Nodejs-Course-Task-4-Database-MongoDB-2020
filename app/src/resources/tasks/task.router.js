@@ -8,6 +8,12 @@ router.route('/').get(async (req, res) => {
 });
 
 router.route('/:id').get(async (req, res) => {
+  console.log(
+    "[TaskRouter] > DELETE › should delete board's tasks upon deletion"
+  );
+  // const boardId = req.params.boardId;
+  // const taskId = req.params.id;
+
   try {
     const task = await tasksService.get(req.params.id);
     return res.json(Task.toResponse(task));
@@ -18,7 +24,6 @@ router.route('/:id').get(async (req, res) => {
 
 router.route('/').post(async (req, res) => {
   // console.log('should create task successfullys');
-
   const task = await tasksService.create(
     new Task({
       title: req.body.title,
@@ -29,9 +34,6 @@ router.route('/').post(async (req, res) => {
       columnId: req.body.columnId,
     })
   );
-
-  // console.log('task', task);
-
   return res.json(Task.toResponse(task));
 });
 
