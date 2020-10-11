@@ -138,7 +138,8 @@ Ubuntu 20.04.01 LTS
 
 **Get All Boards**
 
-    $ curl -X GET "http://localhost:4000/boards" -H  "accept: application/json" \
+    $ curl -X GET "http://localhost:4000/boards" \
+    -H  "accept: application/json" \
     | python3 -m json.tool
 
 <br/>
@@ -152,8 +153,6 @@ Ubuntu 20.04.01 LTS
 <br/>
 
 **Create Board**
-
-<br/>
 
     $ curl -d '{
       "title": "Hello World!"
@@ -186,6 +185,22 @@ Ubuntu 20.04.01 LTS
 
     $ curl \
     -X DELETE "http://localhost:4000/boards/1fc7d7da-5ee6-4820-8447-f8c3d180c4f6" \
+    -H  "accept: application/json" \
+    | python3 -m json.tool
+
+<br/>
+
+**!!!! Get Board Tasks**
+
+    $ curl -X GET "http://localhost:4000/boards/5da5a3c9-4710-4ff6-b6e5-f1cd37ac8af9/tasks" \
+    -H  "accept: application/json" \
+    | python3 -m json.tool
+
+<br/>
+
+**!!!! Get Board Task ByID**
+
+    $ curl -X GET "http://localhost:4000/boards/5da5a3c9-4710-4ff6-b6e5-f1cd37ac8af9/tasks/myTaskId" \
     -H  "accept: application/json" \
     | python3 -m json.tool
 
