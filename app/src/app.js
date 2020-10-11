@@ -23,6 +23,7 @@ app.use('/', (req, res, next) => {
 
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
+boardRouter.use('/:boardId/tasks', taskRouter);
 app.use('/tasks', taskRouter);
 
 app.use((err, req, res, next) => {

@@ -88,16 +88,17 @@ const createBoardTask = async (boardId, body) => {
   const newTask = new Task(body);
   await DBTasks.createTask(newTask);
 
-  // console.log('newTask', newTask);
+  // Здесь нужно добавить таску в боард
 
   return getBoardTasks(boardId);
 };
 
-const deleteBoardTask = async (boardId, taskId) => {
-  console.log('deleteBoardTask');
+// const deleteBoardTask = async (boardId, taskId) => {
+const deleteBoardTask = async () => {
+  // console.log('deleteBoardTask');
 
-  console.log('boardId', boardId);
-  console.log('taskId', taskId);
+  // console.log('boardId', boardId);
+  // console.log('taskId', taskId);
 
   const res = [];
   // await _.map(allBoards, (stateItem) => {
