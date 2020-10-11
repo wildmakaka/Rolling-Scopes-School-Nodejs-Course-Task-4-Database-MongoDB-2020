@@ -16,9 +16,9 @@ const create = async (task) => {
   return DBTasks.createTask(task);
 };
 
-// const update = async (id, body) => {
-//   return DB.updateUser(id, body);
-// };
+const update = async (boardId, taskId, body) => {
+  return DBTasks.updateTask(boardId, taskId, body);
+};
 
 const remove = async (id) => {
   return DBTasks.removeTask(id);
@@ -26,4 +26,4 @@ const remove = async (id) => {
 
 // update
 
-module.exports = { getAll, get, create, remove };
+module.exports = { getAll, get, create, update, remove };

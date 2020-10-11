@@ -19,22 +19,28 @@ const createTask = async (task) => {
   return getTask(task.id);
 };
 
-// const updateUser = async (id, body) => {
-//   await _.map(DB, (stateItem) => {
-//     if (stateItem.id === id) {
-//       _.map(stateItem, (value, key) => {
-//         // if (body.hasOwnProperty(key)) {
-//         //   stateItem[key] = body[key];
-//         // }
+const updateTask = async (boardId, taskId, body) => {
+  console.log('updateTask');
+  console.log(boardId);
+  console.log(taskId);
+  console.log(body);
 
-//         if (Object.prototype.hasOwnProperty.call(body, key)) {
-//           stateItem[key] = body[key];
-//         }
-//       });
-//     }
-//   });
-//   return getUser(id);
-// };
+  await _.map(DBTasks, (task) => {
+    if (task.id === taskId) {
+      _.map(task, (value, key) => {
+        // if (body.hasOwnProperty(key)) {
+        //   stateItem[key] = body[key];
+        // }
+
+        if (Object.prototype.hasOwnProperty.call(body, key)) {
+          task[key] = body[key];
+        }
+      });
+    }
+  });
+
+  return getTask(taskId);
+};
 
 const removeTask = async (id) => {
   const deletedTask = await getTask(id);
@@ -54,11 +60,11 @@ const deleteUserFromTasks = async (userId) => {
   return null;
 };
 
-// module.exports = { , updateUser, removeUser };
 module.exports = {
   getAllTasks,
   getTask,
   createTask,
+  updateTask,
   removeTask,
   deleteUserFromTasks,
 };

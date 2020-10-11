@@ -35,14 +35,20 @@ router.route('/').post(async (req, res) => {
   return res.json(Task.toResponse(task));
 });
 
-// router.route('/:id').put(async (req, res) => {
-//   try {
-//     const user = await usersService.update(req.params.id, req.body);
-//     return res.json(User.toResponse(user));
-//   } catch (err) {
-//     res.status(404).send(err.message);
-//   }
-// });
+router.route('/:id').put(async (req, res) => {
+  console.log('PUT › should update task successfully');
+
+  const boardId = req.params.boardId;
+  const taskId = req.params.id;
+  const body = req.body;
+
+  try {
+    const updatedTask = await tasksService.update(boardId, taskId, body);
+    return res.json(Task.toResponse(updatedTask));
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
 
 router.route('/:id').delete(async (req, res) => {
   try {
