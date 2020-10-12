@@ -1,7 +1,7 @@
 const tasksRepo = require('./task.memory.repository');
 
 const getAll = () => tasksRepo.getAll();
-const get = (id) => tasksRepo.get(id);
+const get = (boardId, taskId) => tasksRepo.get(boardId, taskId);
 const create = (task) => tasksRepo.create(task);
 const update = (boardId, taskId, body) =>
   tasksRepo.update(boardId, taskId, body);

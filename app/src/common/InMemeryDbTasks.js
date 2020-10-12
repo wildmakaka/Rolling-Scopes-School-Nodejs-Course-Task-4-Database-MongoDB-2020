@@ -1,22 +1,27 @@
 const _ = require('lodash');
-// const Task = require('../resources/tasks/task.model');
-
 const DBTasks = [];
-
-// DBTasks.push(new Task(), new Task(), new Task());
 
 const getAllTasks = async () => {
   return DBTasks.slice(0);
 };
 
-const getTask = async (id) => {
+const getTask = async (boardId, taskId) => {
   const allTasks = await getAllTasks();
-  return allTasks.filter((el) => el.id === id)[0];
+  let result;
+
+  if (!boardId) {
+    result = await allTasks.filter((el) => el.id === taskId)[0];
+  } else {
+    result = await allTasks.filter(
+      (el) => el.boardId === boardId && el.id === taskId
+    )[0];
+  }
+  return result;
 };
 
 const createTask = async (task) => {
   DBTasks.push(task);
-  return getTask(task.id);
+  return getTask(null, task.id);
 };
 
 const updateTask = async (boardId, taskId, body) => {
@@ -34,11 +39,11 @@ const updateTask = async (boardId, taskId, body) => {
     }
   });
 
-  return getTask(taskId);
+  return getTask(null, taskId);
 };
 
 const removeTask = async (id) => {
-  const deletedTask = await getTask(id);
+  const deletedTask = await getTask(null, id);
   await _.remove(DBTasks, (task) => {
     return task.id === id;
   });
@@ -55,6 +60,12 @@ const deleteUserFromTasks = async (userId) => {
   return null;
 };
 
+const removeTaskByBoardId = async (boardId) => {
+  await _.remove(DBTasks, (task) => {
+    return task.boardId === boardId;
+  });
+};
+
 module.exports = {
   getAllTasks,
   getTask,
@@ -62,4 +73,5 @@ module.exports = {
   updateTask,
   removeTask,
   deleteUserFromTasks,
+  removeTaskByBoardId,
 };
