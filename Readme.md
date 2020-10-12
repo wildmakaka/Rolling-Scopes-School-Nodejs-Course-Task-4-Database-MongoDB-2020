@@ -21,6 +21,7 @@ Ubuntu 20.04.01 LTS
     $ cd app/
     $ npm install
     $ npm start
+    $ npm test
 
 <br/>
 
@@ -28,7 +29,7 @@ Ubuntu 20.04.01 LTS
 
 <br/>
 
-# Проверки (необходимо заменять id на сгенерированные):
+# Примеры вариантов вызовов в командной строке (необходимо заменять id на сгенерированные):
 
 ### Users
 
@@ -110,17 +111,6 @@ Ubuntu 20.04.01 LTS
     -X POST http://localhost:4000/tasks \
     | python3 -m json.tool
 
-<!--
-
-  id,
-      title,
-      order,
-      description,
-      userId, //assignee
-      boardId,
-      columnId;
--->
-
 <br/>
 
 **Delete Task**
@@ -161,24 +151,6 @@ Ubuntu 20.04.01 LTS
     -X POST http://localhost:4000/boards \
     | python3 -m json.tool
 
-<!-- $ curl -d '{
-  "user": "5d7a514b5d2c12c7449be045",
-	"name": "Devworks Bootcamp",
-	"description": "Devworks is a full stack JavaScript Bootcamp located in the heart of Boston that focuses on the technologies you need to get a high paying job as a web developer",
-	"website": "https://devworks.com",
-	"phone": "(111) 111-1111",
-	"email": "enroll@devworks.com",
-	"address": "233 Bay State Rd Boston MA 02215",
-	"careers": ["Web Development", "UI/UX", "Business"],
-	"housing": true,
-	"jobAssistance": true,
-	"jobGuarantee": false,
-	"acceptGi": true
-}' \
--H "Content-Type: application/json" \
--X POST localhost:5000/api/v1/bootcamps \
-| python -m json.tool     -->
-
 <br/>
 
 **Delete Board**
@@ -187,39 +159,6 @@ Ubuntu 20.04.01 LTS
     -X DELETE "http://localhost:4000/boards/1fc7d7da-5ee6-4820-8447-f8c3d180c4f6" \
     -H  "accept: application/json" \
     | python3 -m json.tool
-
-<br/>
-
-**!!!! Get Board Tasks**
-
-    $ curl -X GET "http://localhost:4000/boards/5da5a3c9-4710-4ff6-b6e5-f1cd37ac8af9/tasks" \
-    -H  "accept: application/json" \
-    | python3 -m json.tool
-
-<br/>
-
-**!!!! Get Board Task ByID**
-
-    $ curl -X GET "http://localhost:4000/boards/5da5a3c9-4710-4ff6-b6e5-f1cd37ac8af9/tasks/myTaskId" \
-    -H  "accept: application/json" \
-    | python3 -m json.tool
-
-```
-{
-        "id": "d87494bf-9a89-452d-ad68-094b19a2619a",
-        "title": "Autotest board",
-        "columns": [
-            {
-                "title": "Backlog",
-                "order": 1
-            },
-            {
-                "title": "Sprint",
-                "order": 2
-            }
-        ]
-    },
-```
 
 <br/>
 
