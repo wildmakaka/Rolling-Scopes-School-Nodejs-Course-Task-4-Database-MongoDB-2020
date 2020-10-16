@@ -2,6 +2,10 @@ const router = require('express').Router();
 const User = require('./user.model');
 const usersService = require('./user.service');
 
+// router.route('/').get( (req, res) => {
+//   throw new Error('BROKEN');
+// });
+
 router.route('/').get(async (req, res) => {
   const users = await usersService.getAll();
   return res.json(users.map(User.toResponse));

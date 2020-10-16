@@ -2,26 +2,23 @@ const winston = require('winston');
 
 require('winston-daily-rotate-file');
 
-const transport = new winston.transports.DailyRotateFile({
-  filename: `${__dirname}/../logs/application-%DATE%.log`,
-  datePattern: 'DD-MM-YYYY',
-  zippedArchive: true,
-  maxSize: '20m',
-  maxFiles: '30d',
+const timezoned = () => new Date().toLocaleString('en-US', {
+  timeZone: 'Europe/Moscow',
 });
-
-// timezone function winston calls to get timezone(ASIA/KOLKATA)
-
-const timezoned = () =>
-  new Date().toLocaleString('en-US', {
-    timeZone: 'Europe/Moscow',
-  });
 
 // options for logger object
 const options = {
-  file: {
+  fileError: {
+    level: 'error',
+    filename: `${__dirname}/../logs/error.log`,
+    handleExceptions: true,
+    json: true,
+    maxsize: 5242880, // 5MB
+    maxFiles: 1,
+  },
+  fileInfo: {
     level: 'info',
-    filename: `${__dirname}/../logs/app.log`,
+    filename: `${__dirname}/../logs/access.log`,
     handleExceptions: true,
     json: true,
     maxsize: 5242880, // 5MB
@@ -38,27 +35,61 @@ const options = {
 // logger object with above defined options
 const logger = winston.createLogger({
   transports: [
-    new winston.transports.File(options.file),
-    new winston.transports.Console(options.console),
-    transport,
+    new winston.transports.File(options.fileError),
+    new winston.transports.File(options.fileInfo),
+    new winston.transports.Console(options.console)
   ],
-  format: winston.format.combine(
-    winston.format.simple(),
-    winston.format.timestamp({
-      format: timezoned,
-    }),
-    winston.format.printf(
-      (info) => `[${info.timestamp}] ${info.level}: ${info.message}`
-    )
-  ),
+  format:
+      winston.format.combine(
+        winston.format.simple(),
+        winston.format.timestamp({
+          format: timezoned,
+        }),
+        winston.format.printf((res) => `[${res.timestamp}] ${res.level}: ${res.message}`),
+        ),
   exitOnError: false,
 });
 
-// writing file
-logger.stream = {
-  write(message) {
-    logger.info(message);
-  },
-};
+const writeAccessLog = (req) => {
+  logger.info('----------------------------');
+  logger.info(`method = ${JSON.stringify(req.method)}`);
+  logger.info(`url = ${JSON.stringify(req.originalUrl)}`);
+  logger.info(`body = ${JSON.stringify(req.body)}`);
+  logger.info(`query = ${JSON.stringify(req.query)}`);
+  logger.info('----------------------------');
+}
 
-module.exports = logger;
+const writeErrorLog = (err, req, res) => {
+  console.log('---------------------------');
+  console.log('WRITE ERROR LOG');
+  console.log('---------------------------');
+
+  logger.error('----------------------------');
+  logger.error(`error = ${JSON.stringify(err)}`);
+  logger.error(`method = ${JSON.stringify(req.method)}`);
+  logger.error(`statusCode = ${JSON.stringify(err.statusCode)}`);
+  logger.error(`params = ${JSON.stringify(req.params)}`);
+  logger.error(`url = ${JSON.stringify(req.originalUrl)}`);
+  logger.error(`body = ${JSON.stringify(req.body)}`);
+  logger.error(`query = ${JSON.stringify(req.query)}`);
+  logger.error(`stack = ${JSON.stringify(err.stack)}`);
+  logger.error('----------------------------');
+}
+
+// https://stackoverflow.com/questions/14837558/nodejs-winston-logging-with-multiple-arguments
+
+process.on('unhandledRejection', (error) =>{
+  logger.error('----------------------------');
+  logger.error('CRITICAL - UNHANDLED REJECTION!');
+  logger.error('----------------------------');
+  logger.error(error.stack);
+});
+
+process.on('uncaughtException', (error) =>{
+  logger.error('----------------------------');
+  logger.error('CRITICAL - UNCOUGHT EXCEPTION!');
+  logger.error('----------------------------');
+  logger.error(error.stack);
+}); 
+
+module.exports = {writeAccessLog, writeErrorLog};
