@@ -1,10 +1,13 @@
 const express = require('express');
+const morgan = require('morgan');
 const swaggerUI = require('swagger-ui-express');
 const path = require('path');
 const YAML = require('yamljs');
 const userRouter = require('./resources/users/user.router');
 const boardRouter = require('./resources/boards/board.router');
 const taskRouter = require('./resources/tasks/task.router');
+const { INTERNAL_SERVER_ERROR, getStatusText } = require('http-status-codes');
+const winston = require('./winstonConfig');
 
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
@@ -12,6 +15,13 @@ const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 app.use(express.json());
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
+app.use(morgan('combined', { stream: winston.stream }));
+
+app.use((req, res, next) => {
+  winston.info(`query = ${JSON.stringify(req.query)}`);
+  next();
+});
 
 app.use('/', (req, res, next) => {
   if (req.originalUrl === '/') {
@@ -27,8 +37,8 @@ boardRouter.use('/:boardId/tasks', taskRouter);
 app.use('/tasks', taskRouter);
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
+  winston.error('Internal Server Error');
+  res.status(INTERNAL_SERVER_ERROR).send(getStatusText(INTERNAL_SERVER_ERROR));
   next();
 });
 
