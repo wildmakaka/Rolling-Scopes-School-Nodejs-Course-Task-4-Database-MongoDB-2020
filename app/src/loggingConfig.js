@@ -2,9 +2,10 @@ const winston = require('winston');
 
 require('winston-daily-rotate-file');
 
-const timezoned = () => new Date().toLocaleString('en-US', {
-  timeZone: 'Europe/Moscow',
-});
+const timezoned = () =>
+  new Date().toLocaleString('en-US', {
+    timeZone: 'Europe/Moscow',
+  });
 
 // options for logger object
 const options = {
@@ -37,16 +38,17 @@ const logger = winston.createLogger({
   transports: [
     new winston.transports.File(options.fileError),
     new winston.transports.File(options.fileInfo),
-    new winston.transports.Console(options.console)
+    new winston.transports.Console(options.console),
   ],
-  format:
-      winston.format.combine(
-        winston.format.simple(),
-        winston.format.timestamp({
-          format: timezoned,
-        }),
-        winston.format.printf((res) => `[${res.timestamp}] ${res.level}: ${res.message}`),
-        ),
+  format: winston.format.combine(
+    winston.format.simple(),
+    winston.format.timestamp({
+      format: timezoned,
+    }),
+    winston.format.printf(
+      (res) => `[${res.timestamp}] ${res.level}: ${res.message}`
+    )
+  ),
   exitOnError: false,
 });
 
@@ -57,9 +59,9 @@ const writeAccessLog = (req) => {
   logger.info(`body = ${JSON.stringify(req.body)}`);
   logger.info(`query = ${JSON.stringify(req.query)}`);
   logger.info('----------------------------');
-}
+};
 
-const writeErrorLog = (err, req, res) => {
+const writeErrorLog = (err, req) => {
   console.log('---------------------------');
   console.log('WRITE ERROR LOG');
   console.log('---------------------------');
@@ -74,22 +76,20 @@ const writeErrorLog = (err, req, res) => {
   logger.error(`query = ${JSON.stringify(req.query)}`);
   logger.error(`stack = ${JSON.stringify(err.stack)}`);
   logger.error('----------------------------');
-}
+};
 
-// https://stackoverflow.com/questions/14837558/nodejs-winston-logging-with-multiple-arguments
-
-process.on('unhandledRejection', (error) =>{
+process.on('unhandledRejection', (error) => {
   logger.error('----------------------------');
   logger.error('CRITICAL - UNHANDLED REJECTION!');
   logger.error('----------------------------');
   logger.error(error.stack);
 });
 
-process.on('uncaughtException', (error) =>{
+process.on('uncaughtException', (error) => {
   logger.error('----------------------------');
   logger.error('CRITICAL - UNCOUGHT EXCEPTION!');
   logger.error('----------------------------');
   logger.error(error.stack);
-}); 
+});
 
-module.exports = {writeAccessLog, writeErrorLog};
+module.exports = { writeAccessLog, writeErrorLog };

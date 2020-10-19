@@ -5,8 +5,12 @@ const YAML = require('yamljs');
 const userRouter = require('./resources/users/user.router');
 const boardRouter = require('./resources/boards/board.router');
 const taskRouter = require('./resources/tasks/task.router');
-const { INTERNAL_SERVER_ERROR, NOT_FOUND, getStatusText } = require('http-status-codes');
-const {writeAccessLog, writeErrorLog} = require('./winstonConfig');
+const {
+  INTERNAL_SERVER_ERROR,
+  NOT_FOUND,
+  getStatusText,
+} = require('http-status-codes');
+const { writeAccessLog, writeErrorLog } = require('./loggingConfig');
 
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
@@ -45,14 +49,15 @@ app.all('*', (req, res, next) => {
   const err = new Error(`Can't find ${req.originalUrl} on this server!`);
   err.status = getStatusText(NOT_FOUND);
   err.statusCode = NOT_FOUND;
-  
+
   next(err);
 });
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   writeErrorLog(err, req, res);
-  return res.status(INTERNAL_SERVER_ERROR).send(getStatusText(INTERNAL_SERVER_ERROR));
-  next();
+  return res
+    .status(INTERNAL_SERVER_ERROR)
+    .send(getStatusText(INTERNAL_SERVER_ERROR));
 });
 
 module.exports = app;
