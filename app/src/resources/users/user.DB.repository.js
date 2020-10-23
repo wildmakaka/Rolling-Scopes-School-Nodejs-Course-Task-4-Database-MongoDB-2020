@@ -5,7 +5,7 @@ const getAll = async () => User.find({});
 const get = async (id) => {
   const user = await User.findById(id);
   if (!user) {
-    throw new Error(`User with id ${id} not found!`);
+    throw new Error(`User with id ${id} was not found!`);
   }
 
   return user;
