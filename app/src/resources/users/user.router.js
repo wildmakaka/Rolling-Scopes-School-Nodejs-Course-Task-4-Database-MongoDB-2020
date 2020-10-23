@@ -9,7 +9,8 @@ router.route('/').get(async (req, res) => {
 
 router.route('/:id').get(async (req, res) => {
   try {
-    const user = await usersService.get(req.params.id);
+    const id = req.params.id;
+    const user = await usersService.get(id);
     return res.json(toResponse(user));
   } catch (err) {
     res.status(404).send(err.message);
@@ -35,7 +36,7 @@ router.route('/:id').put(async (req, res) => {
     const updatedUser = await usersService.update(id, user);
     return res.json(toResponse(updatedUser));
   } catch (err) {
-    res.status(404).send(err.message);
+    return res.status(404).send(err.message);
   }
 });
 
@@ -44,7 +45,7 @@ router.route('/:id').delete(async (req, res) => {
     const user = await usersService.remove(req.params.id);
     return res.json(toResponse(user));
   } catch (err) {
-    res.status(404).send(err.message);
+    return res.status(404).send(err.message);
   }
 });
 

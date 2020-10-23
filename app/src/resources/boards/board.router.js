@@ -1,22 +1,24 @@
 const router = require('express').Router();
-const { Board } = require('./board.model');
+const { Board, toResponse } = require('./board.model');
 const boardsService = require('./board.service');
 
 // Get All
 router.route('/').get(async (req, res) => {
   const boards = await boardsService.getAll();
-  return res.json(boards);
+  return res.json(boards.map(toResponse));
 });
 
 // Get By Id
 router.route('/:id').get(async (req, res) => {
   const boardId = req.params.id;
 
+  console.log('boardID');
+  console.log(boardId);
   try {
     const board = await boardsService.get(boardId);
-    return res.json(board);
+    return res.json(toResponse(board));
   } catch (err) {
-    res.status(404).send(err.message);
+    return res.status(404).send(err.message);
   }
 });
 
@@ -28,7 +30,7 @@ router.route('/').post(async (req, res) => {
       columns: req.body.columns,
     })
   );
-  return res.json(board);
+  return res.json(toResponse(board));
 });
 
 router.route('/:id').put(async (req, res) => {
@@ -36,9 +38,9 @@ router.route('/:id').put(async (req, res) => {
     const id = req.params.id;
     const board = req.body;
     const updatedBoard = await boardsService.update(id, board);
-    return res.json(updatedBoard);
+    return res.json(toResponse(updatedBoard));
   } catch (err) {
-    res.status(404).send(err.message);
+    return res.status(404).send(err.message);
   }
 });
 
@@ -46,9 +48,9 @@ router.route('/:id').delete(async (req, res) => {
   const boardId = req.params.id;
   try {
     const board = await boardsService.remove(boardId);
-    return res.json(board);
+    return res.json(toResponse(board));
   } catch (err) {
-    res.status(404).send(err.message);
+    return res.status(404).send(err.message);
   }
 });
 

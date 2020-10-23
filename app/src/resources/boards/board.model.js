@@ -4,17 +4,23 @@ const Schema = mongoose.Schema;
 const Board = new Schema(
   {
     title: String,
-    columns: Array,
+    columns: [
+      {
+        id: String,
+        title: String,
+        order: String,
+      },
+    ],
   },
   { collection: 'boards' }
 );
 
-// const toResponse = (board) => {
-//   const { id, title, columns } = board;
-//   return { id, title, columns };
-// };
+const toResponse = (board) => {
+  const { id, title, columns } = board;
+  return { id, title, columns };
+};
 
-module.exports = { Board: mongoose.model('boards', Board) };
+module.exports = { Board: mongoose.model('boards', Board), toResponse };
 
 // const { v4: uuid } = require('uuid');
 // class Board {

@@ -13,7 +13,12 @@ const Task = new Schema(
   { collection: 'tasks' }
 );
 
-module.exports = { Task: mongoose.model('tasks', Task) };
+const toResponse = (task) => {
+  const { id, title, order, description, userId, boardId, columnId } = task;
+  return { id, title, order, description, userId, boardId, columnId };
+};
+
+module.exports = { Task: mongoose.model('tasks', Task), toResponse };
 
 // const { v4: uuid } = require('uuid');
 

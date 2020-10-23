@@ -10,7 +10,7 @@ mongoose.connect(MONGO_CONNECTION_STRING, {
 
 const db = mongoose.connection;
 
-db.on('error', () => console.Console.og('MongoDB connection error!')).once(
+db.on('error', () => console.log('MongoDB connection error!')).once(
   'open',
   () => {
     console.log('Successfully connect to MongoDB!');
