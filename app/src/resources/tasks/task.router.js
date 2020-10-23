@@ -10,9 +10,10 @@ router.route('/').get(async (req, res) => {
 
 // Get By Id
 router.route('/:id').get(async (req, res) => {
+  const boardId = req.params.boardId;
   const taskId = req.params.id;
   try {
-    const task = await tasksService.get(taskId);
+    const task = await tasksService.getById(boardId, taskId);
     return res.json(toResponse(task));
   } catch (err) {
     return res.status(404).send(err.message);
@@ -36,9 +37,6 @@ router.route('/').post(async (req, res) => {
 
 // Update
 router.route('/:id').put(async (req, res) => {
-  console.log('Update');
-  console.log(req.params.id);
-
   const boardId = req.params.boardId;
   const taskId = req.params.id;
   const task = req.body;

@@ -2,7 +2,7 @@ const { Task } = require('./task.model');
 
 const getAll = async () => Task.find({});
 
-const get = async (taskId) => {
+const getById = async (boardId, taskId) => {
   const task = await Task.findById(taskId);
   if (!task) {
     throw new Error(`Task with id ${taskId} was not found!`);
@@ -14,12 +14,12 @@ const create = async (task) => Task.create(task);
 
 const update = async (boardId, taskId, task) => {
   await Task.updateOne({ _id: taskId }, task);
-  return get(taskId);
+  return getById(taskId);
 };
 
 const remove = async (id) => Task.deleteOne({ _id: id });
 
-module.exports = { getAll, get, create, update, remove };
+module.exports = { getAll, getById, create, update, remove };
 
 // const DBTasks = require('../../common/InMemeryDbTasks');
 
@@ -47,4 +47,4 @@ module.exports = { getAll, get, create, update, remove };
 //   return DBTasks.removeTask(id);
 // };
 
-module.exports = { getAll, get, create, update, remove };
+module.exports = { getAll, getById, create, update, remove };

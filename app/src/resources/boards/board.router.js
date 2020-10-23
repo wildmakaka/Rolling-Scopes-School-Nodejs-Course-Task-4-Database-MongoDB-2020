@@ -13,7 +13,7 @@ router.route('/').get(async (req, res) => {
 router.route('/:id').get(async (req, res) => {
   const boardId = req.params.id;
   try {
-    const board = await boardsService.get(boardId);
+    const board = await boardsService.getById(boardId);
     return res.json(toResponse(board));
   } catch (err) {
     return res.status(NOT_FOUND).send(err.message);

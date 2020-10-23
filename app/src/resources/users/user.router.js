@@ -10,8 +10,8 @@ router.route('/').get(async (req, res) => {
 
 router.route('/:id').get(async (req, res) => {
   try {
-    const id = req.params.id;
-    const user = await usersService.get(id);
+    const userId = req.params.id;
+    const user = await usersService.getById(userId);
     return res.json(toResponse(user));
   } catch (err) {
     res.status(NOT_FOUND).send(err.message);
