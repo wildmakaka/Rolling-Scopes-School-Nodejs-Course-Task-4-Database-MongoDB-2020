@@ -53,9 +53,6 @@ router.route('/:id').put(async (req, res) => {
 // Delete
 router.route('/:id').delete(async (req, res) => {
   try {
-    console.log('Delete');
-    console.log(req.params.id);
-
     const id = req.params.id;
     const task = await tasksService.remove(id);
     return res.json(toResponse(task));
