@@ -1,4 +1,5 @@
 const { User } = require('./user.model');
+const { Task } = require('../tasks/task.model');
 
 const getAll = async () => User.find({});
 
@@ -18,6 +19,9 @@ const update = async (id, user) => {
   return get(id);
 };
 
-const remove = async (id) => User.deleteOne({ _id: id });
+const remove = async (userId) => {
+  await User.deleteOne({ _id: userId });
+  await Task.updateMany({ userId }, { $set: { userId: null } });
+};
 
 module.exports = { getAll, get, create, update, remove };

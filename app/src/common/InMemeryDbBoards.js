@@ -45,6 +45,8 @@ const removeBoard = async (boardId) => {
   return deletedBoard;
 };
 
+// DELETE
+
 module.exports = {
   getAllBoards,
   getBoard,

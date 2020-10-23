@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { OK, NOT_FOUND, getStatusText } = require('http-status-codes');
 const { Board, toResponse } = require('./board.model');
 const boardsService = require('./board.service');
 
@@ -15,7 +16,7 @@ router.route('/:id').get(async (req, res) => {
     const board = await boardsService.get(boardId);
     return res.json(toResponse(board));
   } catch (err) {
-    return res.status(404).send(err.message);
+    return res.status(NOT_FOUND).send(err.message);
   }
 });
 
@@ -37,17 +38,17 @@ router.route('/:id').put(async (req, res) => {
     const updatedBoard = await boardsService.update(id, board);
     return res.json(toResponse(updatedBoard));
   } catch (err) {
-    return res.status(404).send(err.message);
+    return res.status(NOT_FOUND).send(err.message);
   }
 });
 
 router.route('/:id').delete(async (req, res) => {
   const boardId = req.params.id;
   try {
-    const board = await boardsService.remove(boardId);
-    return res.json(toResponse(board));
+    await boardsService.remove(boardId);
+    return res.status(OK).send(getStatusText(OK));
   } catch (err) {
-    return res.status(404).send(err.message);
+    return res.status(NOT_FOUND).send(err.message);
   }
 });
 
