@@ -1,0 +1,51 @@
+const { Task } = require('./task.model');
+
+const getAll = async () => Task.find({});
+
+const get = async (id) => {
+  const task = await Task.findById(id);
+  if (!task) {
+    throw new Error(`Task with id ${id} was not found!`);
+  }
+
+  return task;
+};
+
+const create = async (task) => Task.create(task);
+
+const update = async (id, task) => {
+  await Task.updateOne({ _id: id }, task);
+  return get(id);
+};
+
+const remove = async (id) => Task.deleteOne({ _id: id });
+
+module.exports = { getAll, get, create, update, remove };
+
+// const DBTasks = require('../../common/InMemeryDbTasks');
+
+// const getAll = async () => DBTasks.getAllTasks();
+
+// const get = async (boardId, taskId) => {
+//   const task = await DBTasks.getTask(boardId, taskId);
+//   if (!task) {
+//     throw new Error(`[App Error] The task with id: ${taskId} was not found!`);
+//   } else if (task.lenght > 1) {
+//     throw new Error('[App Error] DB is corrupted!');
+//   }
+//   return task;
+// };
+
+// const create = async (task) => {
+//   return DBTasks.createTask(task);
+// };
+
+// const update = async (boardId, taskId, body) => {
+//   return DBTasks.updateTask(boardId, taskId, body);
+// };
+
+// const remove = async (id) => {
+//   return DBTasks.removeTask(id);
+// };
+
+module.exports = { getAll, get, create, update, remove };

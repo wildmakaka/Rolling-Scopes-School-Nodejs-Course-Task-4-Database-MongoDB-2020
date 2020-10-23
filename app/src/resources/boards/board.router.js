@@ -11,9 +11,6 @@ router.route('/').get(async (req, res) => {
 // Get By Id
 router.route('/:id').get(async (req, res) => {
   const boardId = req.params.id;
-
-  console.log('boardID');
-  console.log(boardId);
   try {
     const board = await boardsService.get(boardId);
     return res.json(toResponse(board));

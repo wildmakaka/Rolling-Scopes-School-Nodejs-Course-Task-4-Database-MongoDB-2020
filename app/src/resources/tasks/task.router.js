@@ -35,9 +35,9 @@ router.route('/').post(async (req, res) => {
 router.route('/:id').put(async (req, res) => {
   const boardId = req.params.boardId;
   const taskId = req.params.id;
-  const body = req.body;
+  const task = req.body;
   try {
-    const updatedTask = await tasksService.update(boardId, taskId, body);
+    const updatedTask = await tasksService.update(boardId, taskId, task);
     return res.json(toResponse(updatedTask));
   } catch (err) {
     return res.status(404).send(err.message);
@@ -46,7 +46,8 @@ router.route('/:id').put(async (req, res) => {
 
 router.route('/:id').delete(async (req, res) => {
   try {
-    const task = await tasksService.remove(req.params.id);
+    const id = req.params.id;
+    const task = await tasksService.remove(id);
     return res.json(toResponse(task));
   } catch (err) {
     return res.status(404).send(err.message);
