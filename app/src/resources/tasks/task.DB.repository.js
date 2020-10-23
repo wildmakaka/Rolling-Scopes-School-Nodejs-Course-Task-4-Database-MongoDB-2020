@@ -7,15 +7,14 @@ const get = async (taskId) => {
   if (!task) {
     throw new Error(`Task with id ${taskId} was not found!`);
   }
-
   return task;
 };
 
 const create = async (task) => Task.create(task);
 
-const update = async (id, task) => {
-  await Task.updateOne({ _id: id }, task);
-  return get(id);
+const update = async (boardId, taskId, task) => {
+  await Task.updateOne({ _id: taskId }, task);
+  return get(taskId);
 };
 
 const remove = async (id) => Task.deleteOne({ _id: id });
