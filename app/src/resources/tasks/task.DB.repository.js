@@ -2,10 +2,10 @@ const { Task } = require('./task.model');
 
 const getAll = async () => Task.find({});
 
-const get = async (id) => {
-  const task = await Task.findById(id);
+const get = async (taskId) => {
+  const task = await Task.findById(taskId);
   if (!task) {
-    throw new Error(`Task with id ${id} was not found!`);
+    throw new Error(`Task with id ${taskId} was not found!`);
   }
 
   return task;

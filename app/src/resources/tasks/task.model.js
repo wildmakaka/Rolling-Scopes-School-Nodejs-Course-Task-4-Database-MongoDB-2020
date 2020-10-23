@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const Task = new Schema(
   {
     title: String,
-    order: String,
+    order: Number,
     description: String,
     userId: String,
     boardId: String,

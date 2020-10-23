@@ -8,7 +8,7 @@ const Board = new Schema(
       {
         id: String,
         title: String,
-        order: String,
+        order: Number,
       },
     ],
   },
