@@ -11,71 +11,18 @@ const getById = async (boardId, taskId) => {
 };
 
 const create = async (boardId, newTask) => {
-  if (!boardId) {
-    console.log('NO BOARD ID');
-    console.log('NO BOARD ID');
-    console.log('NO BOARD ID');
-    console.log('NO BOARD ID');
-    console.log('NO BOARD ID');
-    console.log('NO BOARD ID');
-    console.log('NO BOARD ID');
-    console.log('NO BOARD ID');
-    console.log('NO BOARD ID');
-    console.log('NO BOARD ID');
-    console.log('NO BOARD ID');
-  }
-
   const ourNewTask = {
     ...newTask,
     boardId,
   };
-
-  // console.log('ourNewTask');
-  // console.log(ourNewTask);
-
   const createdTask = await Task.create(ourNewTask);
-
-  console.log('createdTask');
-  console.log(createdTask);
-
   return createdTask;
 };
 
-// Task.create(task);
-
 const update = async (boardId, taskId, task) => {
-  await Task.updateOne({ _id: taskId }, task);
-  return getById(taskId);
+  return await Task.updateOne({ _id: taskId }, task);
 };
 
 const remove = async (id) => Task.deleteOne({ _id: id });
-
-module.exports = { getAll, getById, create, update, remove };
-
-// const DBTasks = require('../../common/InMemeryDbTasks');
-
-// const getAll = async () => DBTasks.getAllTasks();
-
-// const get = async (boardId, taskId) => {
-//   const task = await DBTasks.getTask(boardId, taskId);
-//   if (!task) {
-//     throw new Error(`[App Error] The task with id: ${taskId} was not found!`);
-//   } else if (task.lenght > 1) {
-//     throw new Error('[App Error] DB is corrupted!');
-//   }
-//   return task;
-// };
-
-// const create = async (task) => {
-//   return DBTasks.createTask(task);
-// };
-
-// const update = async (boardId, taskId, body) => {
-//   return DBTasks.updateTask(boardId, taskId, body);
-// };
-
-// const remove = async (id) => {
-//   return DBTasks.removeTask(id);
-// };
 
 module.exports = { getAll, getById, create, update, remove };

@@ -1,4 +1,6 @@
 const router = require('express').Router({ mergeParams: true });
+const { NOT_FOUND } = require('http-status-codes');
+
 const tasksService = require('./task.service');
 const { toResponse } = require('./task.model');
 
@@ -16,7 +18,7 @@ router.route('/:id').get(async (req, res) => {
     const task = await tasksService.getById(boardId, taskId);
     return res.json(toResponse(task));
   } catch (err) {
-    return res.status(404).send(err.message);
+    return res.status(NOT_FOUND).send(err.message);
   }
 });
 
@@ -35,9 +37,10 @@ router.route('/:id').put(async (req, res) => {
   const task = req.body;
   try {
     const updatedTask = await tasksService.update(boardId, taskId, task);
+    // return res.status(OK).send(updatedTask);
     return res.json(toResponse(updatedTask));
   } catch (err) {
-    return res.status(404).send(err.message);
+    return res.status(NOT_FOUND).send(err.message);
   }
 });
 
@@ -48,7 +51,7 @@ router.route('/:id').delete(async (req, res) => {
     const task = await tasksService.remove(id);
     return res.json(toResponse(task));
   } catch (err) {
-    return res.status(404).send(err.message);
+    return res.status(NOT_FOUND).send(err.message);
   }
 });
 
