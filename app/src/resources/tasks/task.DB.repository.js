@@ -10,7 +10,38 @@ const getById = async (boardId, taskId) => {
   return task;
 };
 
-const create = async (task) => Task.create(task);
+const create = async (boardId, newTask) => {
+  if (!boardId) {
+    console.log('NO BOARD ID');
+    console.log('NO BOARD ID');
+    console.log('NO BOARD ID');
+    console.log('NO BOARD ID');
+    console.log('NO BOARD ID');
+    console.log('NO BOARD ID');
+    console.log('NO BOARD ID');
+    console.log('NO BOARD ID');
+    console.log('NO BOARD ID');
+    console.log('NO BOARD ID');
+    console.log('NO BOARD ID');
+  }
+
+  const ourNewTask = {
+    ...newTask,
+    boardId,
+  };
+
+  // console.log('ourNewTask');
+  // console.log(ourNewTask);
+
+  const createdTask = await Task.create(ourNewTask);
+
+  console.log('createdTask');
+  console.log(createdTask);
+
+  return createdTask;
+};
+
+// Task.create(task);
 
 const update = async (boardId, taskId, task) => {
   await Task.updateOne({ _id: taskId }, task);

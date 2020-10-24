@@ -2,7 +2,7 @@ const tasksRepo = require('./task.DB.repository');
 
 const getAll = () => tasksRepo.getAll();
 const getById = (boardId, taskId) => tasksRepo.getById(boardId, taskId);
-const create = (task) => tasksRepo.create(task);
+const create = (boardId, newTask) => tasksRepo.create(boardId, newTask);
 const update = (boardId, taskId, task) =>
   tasksRepo.update(boardId, taskId, task);
 const remove = (id) => tasksRepo.remove(id);

@@ -1,6 +1,6 @@
 const router = require('express').Router({ mergeParams: true });
-const { Task, toResponse } = require('./task.model');
 const tasksService = require('./task.service');
+const { toResponse } = require('./task.model');
 
 // Get All
 router.route('/').get(async (req, res) => {
@@ -22,17 +22,10 @@ router.route('/:id').get(async (req, res) => {
 
 // Create
 router.route('/').post(async (req, res) => {
-  const task = await tasksService.create(
-    new Task({
-      title: req.body.title,
-      order: req.body.order,
-      description: req.body.description,
-      userId: req.body.userId,
-      boardId: req.params.boardId,
-      columnId: req.body.columnId,
-    })
-  );
-  return res.json(toResponse(task));
+  const boardId = req.params.boardId;
+  const newTask = req.body;
+  const createdTask = await tasksService.create(boardId, newTask);
+  return res.json(toResponse(createdTask));
 });
 
 // Update
