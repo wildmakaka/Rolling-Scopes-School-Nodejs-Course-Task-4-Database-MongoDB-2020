@@ -31,6 +31,7 @@ router.route('/').post(async (req, res) => {
   return res.json(toResponse(board));
 });
 
+// Update
 router.route('/:id').put(async (req, res) => {
   try {
     const id = req.params.id;
@@ -42,6 +43,7 @@ router.route('/:id').put(async (req, res) => {
   }
 });
 
+// Delete
 router.route('/:id').delete(async (req, res) => {
   const boardId = req.params.id;
   try {

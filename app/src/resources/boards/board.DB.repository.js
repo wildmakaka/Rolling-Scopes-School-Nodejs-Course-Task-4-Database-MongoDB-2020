@@ -1,5 +1,5 @@
 const { Board } = require('./board.model');
-const { Task } = require('../tasks/task.model');
+// const { Task } = require('../tasks/task.model');
 
 const getAll = async () => Board.find({});
 
@@ -20,7 +20,7 @@ const update = async (id, board) => {
 
 const remove = async (boardId) => {
   await Board.deleteOne({ _id: boardId });
-  await Task.updateMany({ boardId }, { $set: { boardId: '' } });
+  // await Task.updateMany({ boardId }, { $set: { boardId: '' } });
 };
 
 // const get = async (id) => {
