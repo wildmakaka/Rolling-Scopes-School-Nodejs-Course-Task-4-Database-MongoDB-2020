@@ -1,4 +1,4 @@
-# RS School REST service - Task 3. Logging & Error Handling
+# RS School REST service - Task 4. Database MongoDB
 
 <br/>
 
